@@ -1,6 +1,7 @@
 class Person {
-  String name;
-  int socialSecNumber;
+  final String id;
+  final String name;
+  final int socialSecNumber;
 
-  Person(this.name, this.socialSecNumber);
+  Person(this.id,this.name, this.socialSecNumber);
 }
