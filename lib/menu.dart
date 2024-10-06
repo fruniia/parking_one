@@ -1,6 +1,6 @@
 import 'dart:io';
 
-class Menu<T> {
+class Menu {
   final Map<int, String> options;
   final String title;
 
@@ -17,6 +17,7 @@ class Menu<T> {
     String? input = stdin.readLineSync();
     int? choice = int.tryParse(input ?? '');
     if (choice != null && options.containsKey(choice)) {
+      //Remove this line
       print('Your choice: ${options[choice]}');
       return choice;
     }

@@ -1,7 +1,9 @@
+import 'dart:io';
 import 'package:parking_one/menu.dart';
+import 'package:parking_one/sub_menu.dart';
 
 void startMenu() {
-  final startMenu = Menu<String>(
+  final startMenu = Menu(
       'Welcome to the parking app \nWhat do you want to handle? (Choose: 1-5)',
       {
         1: 'Persons',
@@ -11,59 +13,41 @@ void startMenu() {
         5: 'Quit'
       });
 
-  final personMenu = Menu<String>('Person Menu', {
-    1: 'Create new person',
-    2: 'Show all persons',
-    3: 'Update person',
-    4: 'Remove person',
-    5: 'Back to main menu'
-  });
+  bool running = true;
 
-  final vehicleMenu = Menu<String>('Vehicle Menu', {
-    1: 'Create new vehicle',
-    2: 'Show all vehicles',
-    3: 'Update vehicle',
-    4: 'Remove vehicle',
-    5: 'Back to main menu'
-  });
+  while (running) {
+    startMenu.display();
+    int? choice = startMenu.getUserChoice();
+    switch (choice) {
+      case 1:
+        subMenu('person');
+        break;
+      case 2:
+        subMenu('vehicle');
+        break;
+      case 3:
+        subMenu('parkingspace');
+        break;
+      case 4:
+        subMenu('parking');
+        break;
+      case 5:
+       running = quit();
+      default:
+        print('Please choose a valid number');
+        stdout.writeln('\x1B[2J\x1B[0;0H');
+        break;
+    }
+  }
+}
 
-  final parkingSpaceMenu = Menu<String>('Parkingspace Menu', {
-    1: 'Create new parkingspace',
-    2: 'Show all parkingspaces',
-    3: 'Update parkingspace',
-    4: 'Remove parkingspace',
-    5: 'Back to main menu'
-  });
-
-  final parkingMenu = Menu<String>('Parking Menu', {
-    1: 'Create new parking',
-    2: 'Show all parkings',
-    3: 'Update parking',
-    4: 'Remove parking',
-    5: 'Back to main menu'
-  });
-
-  startMenu.display();
-
-  int? choice = startMenu.getUserChoice();
-
-  switch (choice) {
-    case 1:
-      personMenu.display();
-      personMenu.getUserChoice();
-    case 2:
-      vehicleMenu.display();
-      vehicleMenu.getUserChoice();
-    case 3:
-      parkingSpaceMenu.display();
-      parkingSpaceMenu.getUserChoice();
-    case 4:
-      parkingMenu.display();
-      parkingMenu.getUserChoice();
-    case 5:
-      startMenu.display();
-      startMenu.getUserChoice();
-    default:
-      break;
+bool quit() {
+  print('Do you want to quit? (Y/N)');
+  var input = stdin.readLineSync();
+  if (input != null && input.toLowerCase() == 'y') {
+    print('Thank you for using our service.');
+    exit(0);
+  } else {
+    return true;
   }
 }
