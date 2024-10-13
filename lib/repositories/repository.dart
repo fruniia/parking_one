@@ -1,7 +1,15 @@
 abstract class Repository<T> {
-  List<T>? getAll();
-  T? getById(int id);
-  void add(T item);
-  void update(T item);
-  void delete(int id);
+  final List<T> _items = [];
+
+  List<T>? getAll() => _items;
+
+  void add(T item) {
+    _items.add(item);
+  }
+
+  void update(int index, T newItem) {
+    _items[index] = newItem;
+  }
+
+  void delete(T item) => _items.remove(item);
 }
