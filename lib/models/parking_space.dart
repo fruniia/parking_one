@@ -1,7 +1,12 @@
-class ParkingSpace {
-  final String id;
-  final String address;
-  final double pricePerHour;
+import 'package:uuid/uuid.dart';
 
-  ParkingSpace(this.id, this.address, this.pricePerHour);
+class ParkingSpace {
+  String id;
+  String address;
+  double pricePerHour;
+
+  ParkingSpace(
+      {required this.id, required this.address, required this.pricePerHour});
+  ParkingSpace.withUUID({required this.address, required this.pricePerHour})
+      : id = Uuid().v4();
 }

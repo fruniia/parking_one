@@ -1,7 +1,14 @@
-class Person {
-  final String id;
-  final String name;
-  final int socialSecNumber;
+import 'package:uuid/uuid.dart';
 
-  Person(this.id,this.name, this.socialSecNumber);
+class Person {
+  String id;
+  String name;
+  String socialSecNumber;
+
+  Person({required this.id, required this.name, required this.socialSecNumber});
+
+  Person.withUUID({
+    required this.name,
+    required this.socialSecNumber,
+  }) : id = Uuid().v4();
 }
