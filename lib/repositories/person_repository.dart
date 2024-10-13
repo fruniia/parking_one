@@ -1,29 +1,29 @@
 import 'package:parking_one/models/person.dart';
 import 'package:parking_one/repositories/repository.dart';
 
-class PersonRepository extends Repository<Parking> {
+class PersonRepository extends Repository<Person> {
   PersonRepository._privateConstructor();
 
   static final PersonRepository _instance =
       PersonRepository._privateConstructor();
 
   factory PersonRepository() => _instance;
-  static final List<Parking> _persons = [];
+  static final List<Person> _persons = [];
 
-  List<Parking> get allPersons => _persons;
+  List<Person> get allPersons => _persons;
 
-  void addPerson(Parking person) {
+  void addPerson(Person person) {
     _persons.add(person);
     add(person);
   }
 
-  void removePerson(Parking person) {
+  void removePerson(Person person) {
     _persons.remove(person);
     delete(person);
   }
 
   //Only option is to update name
-  void updatePerson(int index, Parking updatedPerson) {
+  void updatePerson(int index, Person updatedPerson) {
     _persons[index].name = updatedPerson.name;
     update(index, updatedPerson);
   }
