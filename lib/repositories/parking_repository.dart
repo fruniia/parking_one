@@ -10,7 +10,7 @@ class ParkingRepository extends Repository<Parking> {
   factory ParkingRepository() => _instance;
   static final List<Parking> _parkings = [];
 
-  List<Parking> get allPersons => _parkings;
+  List<Parking> get allParkings => _parkings;
 
   void addParking(Parking parking) {
     _parkings.add(parking);
