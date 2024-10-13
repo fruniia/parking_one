@@ -1,24 +1,22 @@
-import 'dart:io';
+import 'package:parking_one/utils/utils.dart';
 
 class Menu {
   final Map<int, String> options;
   final String title;
+  
 
   Menu(this.title, this.options);
 
   void display() {
-    print(title);
+    displaySuccess(title);
     options.forEach((key, value) {
-      print("$key: $value");
+      displayInfo("$key: $value");
     });
   }
 
   int? getUserChoice() {
-    String? input = stdin.readLineSync();
-    int? choice = int.tryParse(input ?? '');
+    int? choice = getNumberInput();
     if (choice != null && options.containsKey(choice)) {
-      //Remove this line
-      print('Your choice: ${options[choice]}');
       return choice;
     }
     return null;

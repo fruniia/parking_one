@@ -1,6 +1,10 @@
 import 'dart:io';
 import 'package:parking_one/menu.dart';
-import 'package:parking_one/sub_menu.dart';
+import 'package:parking_one/parking_menu.dart';
+import 'package:parking_one/parking_space_menu.dart';
+import 'package:parking_one/person_menu.dart';
+import 'package:parking_one/utils/utils.dart';
+import 'package:parking_one/vehicle_menu.dart';
 
 void startMenu() {
   final startMenu = Menu(
@@ -20,34 +24,36 @@ void startMenu() {
     int? choice = startMenu.getUserChoice();
     switch (choice) {
       case 1:
-        subMenu('person');
+        personMenu('persons');
         break;
       case 2:
-        subMenu('vehicle');
+        vehicleMenu('vehicles');
         break;
       case 3:
-        subMenu('parkingspace');
+        parkingSpaceMenu('parkingspaces');
         break;
       case 4:
-        subMenu('parking');
+        parkingMenu('parkings');
         break;
       case 5:
-       running = quit();
+        running = quit();
       default:
-        print('Please choose a valid number');
-        stdout.writeln('\x1B[2J\x1B[0;0H');
+        clearScreen();
+        displayWarning('Please choose a valid number');
         break;
     }
   }
 }
 
 bool quit() {
-  print('Do you want to quit? (Y/N)');
+  displayWarning('Do you want to quit? (Y/N)');
   var input = stdin.readLineSync();
   if (input != null && input.toLowerCase() == 'y') {
-    print('Thank you for using our service.');
+    clearScreen();
+    displayInfo('Thank you for using our service.');
     exit(0);
   } else {
+    clearScreen();
     return true;
   }
 }
