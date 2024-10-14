@@ -56,9 +56,143 @@ List<ParkingSpace> getParkingSpaces() {
   return ParkingSpaceRepository().allParkingSpaces;
 }
 
-void deleteParking(ParkingRepository parkingRepo) {}
+void deleteParking(ParkingRepository parkingRepo) {
+  var parkings = showParkings(parkingRepo);
+  if (parkings.isNotEmpty) {
+    displayInfo('Please enter index to delete:');
+    var index = getNumberInput();
 
-void updateParking(ParkingRepository parkingRepo) {}
+    if (index != null && index >= 0 && index < parkings.length) {
+      var parking = parkings[index];
+      displayWarning('Do you really want to delete');
+      var str = getTextInput();
+
+      if (str != null && str.toLowerCase() == 'y') {
+        parkingRepo.removeParking(parking);
+      }
+    }
+  } else {
+    displayInfo('Nothing to delete');
+  }
+}
+
+void updateParking(ParkingRepository parkingRepo) {
+  var parkings = showParkings(parkingRepo);
+  if (parkings.isNotEmpty) {
+    displayInfo(
+        'Please choose index of Parking ${parkings.length == 1 ? '0' : '0-${parkings.length - 1}'}');
+
+    var index = getNumberInput();
+
+    if (index != null) {
+      var parkingToUpdate = parkings[index];
+      print(
+          'What would you like to update? (1: Vehicle 2: ParkingSpace 3: StartTime 4:StopTime)');
+
+      int? choice = getNumberInput();
+      if (choice == 1) {
+        displayInfo('Update vehicle');
+        var vehicles = getVehicles();
+        Vehicle vehicleUpdate;
+
+        if (vehicles.isNotEmpty) {
+          for (int i = 0; i < vehicles.length; i++) {
+            print('$i: ${vehicles[i].licensePlate}');
+          }
+
+          displayInfo('Please choose index:');
+          var index = getNumberInput();
+
+          if (index != null) {
+            vehicleUpdate = vehicles[index];
+            parkingToUpdate.vehicle = vehicleUpdate;
+          }
+        }
+      } else if (choice == 2) {
+        displayInfo('Update parkingspace');
+        var parkingSpaces = getParkingSpaces();
+        ParkingSpace parkingSpaceUpdate;
+
+        if (parkingSpaces.isNotEmpty) {
+          for (int i = 0; i < parkingSpaces.length; i++) {
+            print('$i: ${parkingSpaces[i].address}');
+          }
+
+          displayInfo('Please choose index');
+          var index = getNumberInput();
+
+          if (index != null) {
+            parkingSpaceUpdate = parkingSpaces[index];
+            parkingToUpdate.parkingSpace = parkingSpaceUpdate;
+          }
+        }
+      } else if (choice == 3) {
+        displayInfo('Update starttime');
+        for (int i = 0; i < parkings.length; i++) {
+          print(
+              '$i ${parkings[i].start.year}-${parkings[i].start.month}-${parkings[i].start.day} ${parkings[i].start.hour.toString().padLeft(2, '0')}:${parkings[i].start.minute.toString().padLeft(2, '0')}');
+        }
+
+        displayInfo('Please choose index');
+        var index = getNumberInput();
+        if (index != null && index < parkings.length) {
+          displayInfo('Please enter year (YYYY)');
+          int? year = getNumberInput();
+          displayInfo('Please enter month (MM)');
+          var month = getNumberInput();
+          displayInfo('Please enter day (DD)');
+          var day = getNumberInput();
+          displayInfo('Please enter hour (HH))');
+          var hour = getNumberInput();
+          displayInfo('Please enter minute (mm))');
+          var minute = getNumberInput();
+          year ??= DateTime.now().year;
+          month ??= DateTime.now().month;
+          day ??= DateTime.now().day;
+          hour ??= DateTime.now().hour;
+          minute ??= DateTime.now().minute;
+          parkingToUpdate.updateStart(DateTime(year, month, day, hour, minute));
+        }
+      } else if(choice == 4){
+                displayInfo('Update stopTime');
+        for (int i = 0; i < parkings.length; i++) {
+          print(
+              '$i ${parkings[i].start.year}-${parkings[i].start.month}-${parkings[i].start.day} ${parkings[i].start.hour.toString().padLeft(2, '0')}:${parkings[i].start.minute.toString().padLeft(2, '0')}');
+        }
+
+        displayInfo('Please choose index');
+        var index = getNumberInput();
+        if (index != null && index < parkings.length) {
+          displayInfo('Please enter year (YYYY)');
+          int? year = getNumberInput();
+          displayInfo('Please enter month (MM)');
+          var month = getNumberInput();
+          displayInfo('Please enter day (DD)');
+          var day = getNumberInput();
+          displayInfo('Please enter hour (HH))');
+          var hour = getNumberInput();
+          displayInfo('Please enter minute (mm))');
+          var minute = getNumberInput();
+
+          year ??= DateTime.now().year;
+          month ??= DateTime.now().month;
+          day ??= DateTime.now().day;
+          hour ??= DateTime.now().hour;
+          minute ??= DateTime.now().minute;
+          parkingToUpdate.updateStop(DateTime(year, month, day, hour, minute));
+        }
+
+      }else {
+        displayWarning('Invalid choice');
+      }
+    }
+  }
+}
+
+int? updateHour() {
+  var year = getNumberInput();
+  return year;
+}
 
 void addParking(ParkingRepository parkingRepo) {
   List<Vehicle> vehicles = getVehicles();

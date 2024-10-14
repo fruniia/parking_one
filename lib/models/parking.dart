@@ -9,6 +9,14 @@ class Parking {
   DateTime start = DateTime.now();
   DateTime? stop;
 
+  void updateStart(DateTime newStart) {
+    start = newStart;
+  }
+
+  void updateStop(DateTime newStop) {
+    stop = newStop;
+  }
+
   Parking(
       {required this.id,
       required this.vehicle,
