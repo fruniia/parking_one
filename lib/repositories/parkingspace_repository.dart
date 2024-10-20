@@ -8,23 +8,23 @@ class ParkingSpaceRepository extends Repository<ParkingSpace> {
       ParkingSpaceRepository._privateConstructor();
 
   factory ParkingSpaceRepository() => _instance;
-  static final List<ParkingSpace> _parkingSpaces = [];
+ // static final List<ParkingSpace> _parkingSpaces = [];
 
-  List<ParkingSpace> get allParkingSpaces => _parkingSpaces;
+  // List<ParkingSpace> get allParkingSpaces => _parkingSpaces;
 
-  void addParkingSpace(ParkingSpace parkingSpace) {
-    _parkingSpaces.add(parkingSpace);
-    add(parkingSpace);
-  }
+  // void addParkingSpace(ParkingSpace parkingSpace) {
+  //   _parkingSpaces.add(parkingSpace);
+  //   add(parkingSpace);
+  // }
 
-  void removeParkingSpace(ParkingSpace parkingSpace) {
-    _parkingSpaces.remove(parkingSpace);
-    delete(parkingSpace);
-  }
+  // void removeParkingSpace(ParkingSpace parkingSpace) {
+  //   _parkingSpaces.remove(parkingSpace);
+  //   delete(parkingSpace);
+  // }
 
-  void updateParkingSpace(int index, ParkingSpace updatedParkingSpace) {
-    _parkingSpaces[index].address = updatedParkingSpace.address;
-    _parkingSpaces[index].pricePerHour = updatedParkingSpace.pricePerHour;
-    update(index, updatedParkingSpace);
-  }
+  // void updateParkingSpace(int index, ParkingSpace updatedParkingSpace) {
+  //   _parkingSpaces[index].address = updatedParkingSpace.address;
+  //   _parkingSpaces[index].pricePerHour = updatedParkingSpace.pricePerHour;
+  //   update(index, updatedParkingSpace);
+  // }
 }
