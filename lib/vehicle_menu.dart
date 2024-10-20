@@ -61,7 +61,7 @@ void deleteVehicle(VehicleRepository vehicleRepo) {
       var str = getTextInput();
 
       if (str != null && str.toLowerCase() == 'y') {
-        vehicleRepo.removeVehicle(vehicle);
+        vehicleRepo.delete(vehicle);
       }
     }
   } else {
@@ -125,7 +125,7 @@ void updateVehicle(VehicleRepository vehicleRepo) {
 }
 
 List<Person> getPersons() {
-  return PersonRepository().allPersons;
+  return PersonRepository().getAll();
 }
 
 void addVehicle(VehicleRepository vehicleRepo) {
@@ -151,7 +151,7 @@ void addVehicle(VehicleRepository vehicleRepo) {
             owner: person,
             vehicleType: vehicleType);
 
-        vehicleRepo.addVehicle(v);
+        vehicleRepo.add(v);
       }
     }
   } else {
@@ -185,7 +185,7 @@ VehicleType? chooseVehicleType() {
 }
 
 List<Vehicle> showVehicles(VehicleRepository vehicleRepo) {
-  List<Vehicle> vehicles = vehicleRepo.allVehicles;
+  List<Vehicle> vehicles = vehicleRepo.getAll();
   if (vehicles.isNotEmpty) {
     for (int i = 0; i < vehicles.length; i++) {
       var vehicle = vehicles[i];

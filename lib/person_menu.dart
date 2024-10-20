@@ -55,7 +55,7 @@ void deletePerson(PersonRepository personRepo) {
       displayWarning('Do you really want to delete?');
       var str = getTextInput();
       if (str != null && str.toLowerCase() == 'y') {
-        personRepo.removePerson(del);
+        personRepo.delete(del);
       }
     }
   } else {
@@ -84,7 +84,7 @@ void updatePerson(PersonRepository personRepo) {
               id: personToUpdate.id,
               name: newName,
               socialSecNumber: personToUpdate.socialSecNumber);
-          personRepo.updatePerson(index, newPerson);
+          personRepo.update(index, newPerson);
         } else {
           displayInfo('No update.');
         }
@@ -102,7 +102,7 @@ void addPerson(PersonRepository personRepo) {
 
   if (newName != null) {
     Person p = Person.withUUID(name: newName, socialSecNumber: ssn);
-    personRepo.addPerson(p);
+    personRepo.add(p);
   } else {
     displayWarning('Nope!');
   }
@@ -125,7 +125,7 @@ String setSocSecNum() {
 }
 
 List<Person> showPersons(PersonRepository personRepo) {
-  List<Person> persons = personRepo.allPersons;
+  List<Person> persons = personRepo.getAll();
   if (persons.isNotEmpty) {
     for (int i = 0; i < persons.length; i++) {
       var person = persons[i];

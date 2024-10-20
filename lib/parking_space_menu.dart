@@ -57,7 +57,7 @@ void deleteParkingSpaces(ParkingSpaceRepository parkingSpaceRepo) {
       displayWarning('Do you really want to delete?');
       var str = getTextInput();
       if (str != null && str.toLowerCase() == 'y') {
-        parkingSpaceRepo.removeParkingSpace(parkingSpace);
+        parkingSpaceRepo.delete(parkingSpace);
       }
     }
   } else {
@@ -116,11 +116,11 @@ void addParkingSpace(ParkingSpaceRepository parkingSpaceRepo) {
   var price = setPricePerHour();
   ParkingSpace ps =
       ParkingSpace.withUUID(address: address, pricePerHour: price);
-  parkingSpaceRepo.addParkingSpace(ps);
+  parkingSpaceRepo.add(ps);
 }
 
 List<ParkingSpace> showParkingSpaces(ParkingSpaceRepository parkingRepo) {
-  List<ParkingSpace> parkingSpaces = parkingRepo.allParkingSpaces;
+  List<ParkingSpace> parkingSpaces = parkingRepo.getAll();
   if (parkingSpaces.isNotEmpty) {
     for (int i = 0; i < parkingSpaces.length; i++) {
       var parkingSpace = parkingSpaces[i];

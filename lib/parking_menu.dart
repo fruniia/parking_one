@@ -48,13 +48,8 @@ void parkingMenu(String menuType) {
   }
 }
 
-List<Vehicle> getVehicles() {
-  return VehicleRepository().allVehicles;
-}
-
-List<ParkingSpace> getParkingSpaces() {
-  return ParkingSpaceRepository().allParkingSpaces;
-}
+List<Vehicle> getVehicles() => VehicleRepository().getAll();
+List<ParkingSpace> getParkingSpaces() => ParkingSpaceRepository().getAll();
 
 void deleteParking(ParkingRepository parkingRepo) {
   var parkings = showParkings(parkingRepo);
@@ -68,7 +63,7 @@ void deleteParking(ParkingRepository parkingRepo) {
       var str = getTextInput();
 
       if (str != null && str.toLowerCase() == 'y') {
-        parkingRepo.removeParking(parking);
+        parkingRepo.delete(parking);
       }
     }
   } else {
@@ -153,8 +148,8 @@ void updateParking(ParkingRepository parkingRepo) {
           minute ??= DateTime.now().minute;
           parkingToUpdate.updateStart(DateTime(year, month, day, hour, minute));
         }
-      } else if(choice == 4){
-                displayInfo('Update stopTime');
+      } else if (choice == 4) {
+        displayInfo('Update stopTime');
         for (int i = 0; i < parkings.length; i++) {
           print(
               '$i ${parkings[i].start.year}-${parkings[i].start.month}-${parkings[i].start.day} ${parkings[i].start.hour.toString().padLeft(2, '0')}:${parkings[i].start.minute.toString().padLeft(2, '0')}');
@@ -181,8 +176,7 @@ void updateParking(ParkingRepository parkingRepo) {
           minute ??= DateTime.now().minute;
           parkingToUpdate.updateStop(DateTime(year, month, day, hour, minute));
         }
-
-      }else {
+      } else {
         displayWarning('Invalid choice');
       }
     }
@@ -223,7 +217,7 @@ void addParking(ParkingRepository parkingRepo) {
         vehicle: vehicle,
         parkingSpace: parkingSpace,
       );
-      parkingRepo.addParking(p);
+      parkingRepo.add(p);
       displaySuccess('Parking added successfully');
     } else {
       displayWarning('Vehicle or parking space selection is invalid');
@@ -240,7 +234,7 @@ void addParking(ParkingRepository parkingRepo) {
 }
 
 List<Parking> showParkings(ParkingRepository parkingRepo) {
-  List<Parking> parkings = parkingRepo.allParkings;
+  List<Parking> parkings = parkingRepo.getAll();
   if (parkings.isNotEmpty) {
     for (int i = 0; i < parkings.length; i++) {
       var parking = parkings[i];
